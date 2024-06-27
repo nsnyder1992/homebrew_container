@@ -25,7 +25,7 @@ export default function Home() {
 
               return (
                 <li key={id} className="list-disc list-inside">
-                  <Link href={`rules/${id}`}>{title}</Link>
+                  <Link href={`${id}`}>{title}</Link>
                 </li>
               );
             })
