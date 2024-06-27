@@ -4,6 +4,7 @@ import createMDX from "@next/mdx";
 import wikiToMDLinks from "./lib/wiki-to-md-links.mjs";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,7 +16,12 @@ const nextConfig = {
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
-    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, wikiToMDLinks],
+    remarkPlugins: [
+      remarkFrontmatter,
+      remarkMdxFrontmatter,
+      wikiToMDLinks,
+      remarkGfm,
+    ],
     rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
   },
 });
