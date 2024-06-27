@@ -16,7 +16,7 @@ export default function Home() {
       </section>
       <section className="grid grid-cols-1 gap-4 m-10">
         <h2 className="text-3xl font-extrabold leading-tight tracking-tighter">
-          Rules
+          Home Links
         </h2>
         <ul>
           {allRulesData ? (
@@ -38,7 +38,7 @@ export default function Home() {
   );
 }
 
-const rulesDirectory = path.join(process.cwd(), "./app/rules");
+const rulesDirectory = path.join(process.cwd(), "./app/");
 function getLinks() {
   return getSortedData(rulesDirectory);
 }
