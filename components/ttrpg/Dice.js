@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Die from "./Die";
 
-export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
+export default function Dice({ diceArray = [1, 2, 3, 0, 0, 1] }) {
   let [values, setValues] = useState([]);
   let [numDice, setNumDice] = useState(1);
   let [diffLevel, setDiffLevel] = useState(1);
@@ -12,20 +13,28 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
   let onRoll = (e) => {
     e.preventDefault();
     if (!init) setInit(true);
-    setLoading(true);
     setValues([]);
-    setTimeout(rollDice, 1000);
+    setTimeout(rollDice(), 100);
   };
 
   let rollDice = () => {
     let temp = [];
     for (let i = 0; i < numDice; i++) {
-      let index = Math.floor(Math.random() * (diceArray.length - 1 - 0 + 1));
-      console.log(index);
-      temp.push(diceArray[index]);
+      let index = Math.floor(Math.random() * 6 + 1) - 1;
+      temp.push(index);
     }
     setValues(temp);
-    setLoading(false);
+  };
+
+  let sum = (values) => {
+    console.log("index", values);
+    console.log(
+      "values",
+      values?.map((x) => diceArray[x])
+    );
+    return values
+      ?.map((x) => diceArray[x])
+      ?.reduce((partialSum, a) => partialSum + a, 0);
   };
 
   return (
@@ -48,7 +57,6 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
           value={numDice}
         />
       </div>
-
       <div className="mb-5">
         <label
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -67,7 +75,6 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
           value={diffLevel}
         />
       </div>
-
       <div className="mb-3">
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -76,32 +83,25 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
           Roll!
         </button>
       </div>
+      <div className="grid grid-cols-4 gap-4">
+        {values?.map((v, key) => (
+          <Die key={key} num={v} />
+        ))}
+      </div>
+
       {init && !loading ? (
         <>
-          {" "}
-          <p style={{ whiteSpace: "pre" }}>
-            Dice:{"\t\t"}
-            {values?.map((v) => {
-              return v + "\t\t";
-            })}
-          </p>
           <p style={{ whiteSpace: "pre" }}>
             Total:{"\t\t"}
-            {values?.reduce((partialSum, a) => partialSum + a, 0)}
+            {sum(values)}
           </p>
           <p
             style={{
               whiteSpace: "pre",
             }}
-            className={
-              values?.reduce((partialSum, a) => partialSum + a, 0) >= diffLevel
-                ? ".success"
-                : ".fail"
-            }
+            className={sum(values) >= diffLevel ? ".success" : ".fail"}
           >
-            {values?.reduce((partialSum, a) => partialSum + a, 0) >= diffLevel
-              ? "Success!"
-              : "Failed :("}
+            {sum(values) >= diffLevel ? "Success!" : "Failed :("}
           </p>
         </>
       ) : (
