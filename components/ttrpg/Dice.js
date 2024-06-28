@@ -5,22 +5,32 @@ import { useState } from "react";
 export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
   let [values, setValues] = useState([]);
   let [numDice, setNumDice] = useState(1);
+  let [diffLevel, setDiffLevel] = useState(1);
+  let [loading, setLoading] = useState(false);
+  let [init, setInit] = useState(false);
 
   let onRoll = (e) => {
     e.preventDefault();
+    if (!init) setInit(true);
+    setLoading(true);
+    setValues([]);
+    setTimeout(rollDice, 1000);
+  };
+
+  let rollDice = () => {
     let temp = [];
     for (let i = 0; i < numDice; i++) {
       let index = Math.floor(Math.random() * (diceArray.length - 1 - 0 + 1));
       console.log(index);
       temp.push(diceArray[index]);
     }
-    console.log(temp);
     setValues(temp);
+    setLoading(false);
   };
 
   return (
-    <form className="max-w-sm mx-auto">
-      <div class="mb-5">
+    <form className="mb-5 max-w-sm mx-auto">
+      <div className="mb-5">
         <label
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           htmlFor="dice"
@@ -39,7 +49,26 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
         />
       </div>
 
-      <div class="mb-3">
+      <div className="mb-5">
+        <label
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          htmlFor="diff"
+        >
+          Difficulty level
+        </label>
+        <input
+          type="number"
+          id="diff"
+          name="diff"
+          min="1"
+          max="100"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={(e) => setDiffLevel(e.target.value)}
+          value={diffLevel}
+        />
+      </div>
+
+      <div className="mb-3">
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           onClick={(e) => onRoll(e)}
@@ -47,17 +76,37 @@ export default function Dice({ diceArray = [0, 0, 1, 1, 2, 3] }) {
           Roll!
         </button>
       </div>
-
-      <p style={{ whiteSpace: "pre" }}>
-        Dice:{"\t\t"}
-        {values?.map((v) => {
-          return v + "\t\t";
-        })}
-      </p>
-      <p style={{ whiteSpace: "pre" }}>
-        Total:{"\t\t"}
-        {values?.reduce((partialSum, a) => partialSum + a, 0)}
-      </p>
+      {init && !loading ? (
+        <>
+          {" "}
+          <p style={{ whiteSpace: "pre" }}>
+            Dice:{"\t\t"}
+            {values?.map((v) => {
+              return v + "\t\t";
+            })}
+          </p>
+          <p style={{ whiteSpace: "pre" }}>
+            Total:{"\t\t"}
+            {values?.reduce((partialSum, a) => partialSum + a, 0)}
+          </p>
+          <p
+            style={{
+              whiteSpace: "pre",
+            }}
+            className={
+              values?.reduce((partialSum, a) => partialSum + a, 0) >= diffLevel
+                ? ".success"
+                : ".fail"
+            }
+          >
+            {values?.reduce((partialSum, a) => partialSum + a, 0) >= diffLevel
+              ? "Success!"
+              : "Failed :("}
+          </p>
+        </>
+      ) : (
+        <></>
+      )}
     </form>
   );
 }
