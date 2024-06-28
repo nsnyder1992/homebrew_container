@@ -12,9 +12,12 @@ export default function Dice({ diceArray = [1, 2, 3, 0, 0, 1] }) {
 
   let onRoll = (e) => {
     e.preventDefault();
+    if (loading) return;
+
     if (!init) setInit(true);
     setValues([]);
-    setTimeout(rollDice(), 100);
+    setLoading(true);
+    setTimeout(rollDice(), 2000);
   };
 
   let rollDice = () => {
@@ -24,6 +27,7 @@ export default function Dice({ diceArray = [1, 2, 3, 0, 0, 1] }) {
       temp.push(index);
     }
     setValues(temp);
+    setLoading(false);
   };
 
   let sum = (values) => {
@@ -77,7 +81,9 @@ export default function Dice({ diceArray = [1, 2, 3, 0, 0, 1] }) {
       </div>
       <div className="mb-3">
         <button
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+            loading ? "disabled cursor-not-allowed opacity-50" : ""
+          }`}
           onClick={(e) => onRoll(e)}
         >
           Roll!
