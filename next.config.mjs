@@ -5,6 +5,8 @@ import wikiToMDLinks from "./lib/wiki-to-md-links.mjs";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import mermaid from "rehype-mermaid";
+import callouts from "remark-callouts";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -20,9 +22,10 @@ const withMDX = createMDX({
       remarkFrontmatter,
       remarkMdxFrontmatter,
       wikiToMDLinks,
+      callouts,
       remarkGfm,
     ],
-    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, mermaid],
   },
 });
 

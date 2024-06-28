@@ -370,6 +370,71 @@ a {
   border-left: 0.25em solid #d0d7de;
 }
 
+:root {
+  --callout-bg-color: #f2f3f5;
+}
+
+:root.dark {
+  --callout-bg-color: #161616;
+}
+
+.markdown-body blockquote,
+.markdown-body .callout {
+  background: #f2f3f5;
+  background: var(--callout-bg-color);
+  font-style: normal;
+  border-radius: 2px;
+}
+
+.markdown-body .callout {
+  padding: 0 !important;
+}
+
+.markdown-body .callout-title {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.markdown-body .callout-title > strong {
+  font-weight: 700;
+}
+
+.markdown-body .blockquote,
+.markdown-body .callout-content {
+  padding: 10px 20px;
+}
+
+.markdown-body .blockquote-heading {
+  margin: 5px 0 !important;
+  padding: 0 !important;
+}
+
+.markdown-body .blockquote > p,
+.markdown-body .callout-content > p {
+  font-weight: normal;
+  margin: 5px 0;
+}
+
+.markdown-body .callout-title p {
+  margin: 0;
+}
+
+.markdown-body .callout-title > strong {
+  line-height: 1.5;
+}
+
+.markdown-body .callout p:before,
+p:after {
+  display: none;
+}
+
+.markdown-body .blockquote > p:before,
+p:after {
+  display: none;
+}
+
 .markdown-body ul,
 .markdown-body ol {
   margin-top: 0;
