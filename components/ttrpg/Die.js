@@ -12,15 +12,11 @@ const Die = ({ num }) => {
   }, [num]);
 
   let rollDice = (num) => {
-    setTimeout(setSide(num), 2000);
+    setSide(num);
   };
 
-  useEffect(() => {
-    console.log("side", show[side]);
-  }, [side]);
-
   return (
-    <div className="dice-container p-4">
+    <div className="basis-1/4">
       <div id="dice" className="dice dice-one">
         {side == 0 || side == 5 ? (
           <div id="dice-one-side-one" className="side one">
