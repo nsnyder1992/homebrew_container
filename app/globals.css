@@ -184,12 +184,12 @@ a {
   top: -0.5em;
 }
 
-.markdown-body img {
+/* .markdown-body img {
   border-style: none;
   max-width: 100%;
   box-sizing: content-box;
   background-color: #ffffff;
-}
+} */
 
 .markdown-body code,
 .markdown-body kbd,
@@ -634,10 +634,10 @@ p:after {
   vertical-align: -0.075em;
 }
 
-.markdown-body g-emoji img {
+/* .markdown-body g-emoji img {
   width: 1em;
   height: 1em;
-}
+} */
 
 .markdown-body::before {
   display: table;
@@ -825,7 +825,7 @@ p:after {
   background-color: #f6f8fa;
 }
 
-.markdown-body table img {
+/* .markdown-body table img {
   background-color: transparent;
 }
 
@@ -835,7 +835,7 @@ p:after {
 
 .markdown-body img[align="left"] {
   padding-right: 20px;
-}
+} */
 
 .markdown-body .emoji {
   max-width: none;
@@ -858,10 +858,10 @@ p:after {
   border: 1px solid #d0d7de;
 }
 
-.markdown-body span.frame span img {
+/* .markdown-body span.frame span img {
   display: block;
   float: left;
-}
+} */
 
 .markdown-body span.frame span span {
   display: block;
@@ -883,10 +883,10 @@ p:after {
   text-align: center;
 }
 
-.markdown-body span.align-center span img {
+/* .markdown-body span.align-center span img {
   margin: 0 auto;
   text-align: center;
-}
+} */
 
 .markdown-body span.align-right {
   display: block;
@@ -901,10 +901,10 @@ p:after {
   text-align: right;
 }
 
-.markdown-body span.align-right span img {
+/* .markdown-body span.align-right span img {
   margin: 0;
   text-align: right;
-}
+} */
 
 .markdown-body span.float-left {
   display: block;
